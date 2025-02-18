@@ -1,0 +1,37 @@
+
+services:
+  es-node1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.2
+    container_name: crypto_historic_data-node1
+    environment:
+      - node.name=crypto_historic_data-node1
+      - cluster.name=crypto_historic_data
+      - discovery.seed_hosts=crypto_historic_data-node1,crypto_historic_data-node2
+      - cluster.initial_master_nodes=crypto_historic_data-node1,crypto_historic_data-node2
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+      - xpack.security.enabled=false
+    volumes:
+      - crypto_historic_data-data1:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+
+  es-node2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.2
+    container_name: crypto_historic_data-node2
+    environment:
+      - node.name=crypto_historic_data-node2
+      - cluster.name=crypto_historic_data
+      - discovery.seed_hosts=crypto_historic_data-node1,crypto_historic_data-node2
+      - cluster.initial_master_nodes=crypto_historic_data-node1,crypto_historic_data-node2
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+      - xpack.security.enabled=false
+    volumes:
+      - crypto_historic_data-data2:/usr/share/elasticsearch/data
+
+volumes:
+  crypto_historic_data-data1:
+  crypto_historic_data-data2:
+
+
+    
+
