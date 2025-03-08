@@ -23,7 +23,7 @@ def save_data(data, index_name='crypto_data'):
         response = es.index(index=index_name, document=data)
         return True
     except Exception as e:
-        print("Exception occured while saving data into elastic : {e}")
+        print(f"Exception occured while saving data into elastic : {e}")
         return False
 
 
